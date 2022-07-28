@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class GestaoCursosApp {
+public class GestaoCursosMain {
     public static void main(String[] args) {
         CursoModel cursoModel = new CursoModel();
 
