@@ -5,7 +5,6 @@ import entities.Produto;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoModel {
@@ -36,7 +35,7 @@ public class ProdutoModel {
         EntityManager em = emf.createEntityManager();
 
         try {
-            Produto produtoRetornado = em.find(Produto.class, p.getId());
+            Produto produtoRetornado = em.getReference(Produto.class, p.getId());
             em.getTransaction().begin();
             produtoRetornado.setNome(p.getNome());
             produtoRetornado.setPreco(p.getPreco());
@@ -57,8 +56,9 @@ public class ProdutoModel {
         EntityManager em = emf.createEntityManager();
 
         try {
+            Produto produtoNoBD = findById(p);
             em.getTransaction().begin();
-            em.remove(em.contains(p) ? p : em.merge(p));
+            em.remove(produtoNoBD);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.close();
